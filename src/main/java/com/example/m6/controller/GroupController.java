@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.m4.services.UserDetailsImpl;
+import com.example.m6.exception.ErrorExc;
 import com.example.m6.request.CreateGroupRequest;
 import com.example.m6.response.CreateGroupResponse;
 import com.example.m6.service.GroupService;
@@ -24,7 +25,7 @@ public class GroupController {
 	GroupService groupService;
 	
 	@PostMapping("/create")
-	public ResponseEntity<CreateGroupResponse> registerUser(@Valid @RequestBody CreateGroupRequest request) {
+	public ResponseEntity<CreateGroupResponse> registerUser(@Valid @RequestBody CreateGroupRequest request) throws ErrorExc {
 		UserDetailsImpl user = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return groupService.processCreateGroup(user.getId(), request);
 	}
